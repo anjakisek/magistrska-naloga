@@ -1846,7 +1846,7 @@ Zopet si oglejmo graf iz primera~\ref{primerR}, ki je ponovno prikazan na sliki~
 Naj bo $G$ kograf dobljen s spojem grafov $G_1$ in $G_2$, kjer je $G_1$ nepovezan graf s komponentami $U_1, \dots, U_l$, $l \geq 2$, in  $V(G_2) = \{x\}$. Tedaj velja $\gamma_s(G) = Q(G, G_1)$.
 \end{lema}
 \begin{proof}
-Sprva privzemimo, da ne obstaja tak $i, i \in [l]$, da bi imel graf $U_i$ lastnost $\mathcal{P^*}$. Po lemi~\ref{Lema7} sledi, da obstaja $\gamma_s$-množica $S$, da velja $x\in S$ in $|S \cap V(U_i)| = \gamma(U_i)$ za vsak $i \in [l]$. Množica $S$ je zato sestavljena iz vozlišča $x$ ter vsote vozlišč $S$ po posameznih komponentah $U_i$, to je $$\gamma_s(G) = 1 + \sum\limits_{i=1}^l\gamma(U_i).$$ Ker nobena komponenta nima lastnosti $\mathcal{P^*}$, je zgornja vsota enaka $Q(G, G_1)$, torej velja $\gamma_s(G) = Q(G, G_1)$.
+Sprva privzemimo, da ne obstaja tak $i \in [l]$, da bi imel graf $U_i$ lastnost $\mathcal{P^*}$. Po lemi~\ref{Lema7} sledi, da obstaja $\gamma_s$-množica $S$, da velja $x\in S$ in $|S \cap V(U_i)| = \gamma(U_i)$ za vsak $i \in [l]$. Množica $S$ je zato sestavljena iz vozlišča $x$ ter vsote vozlišč $S$ po posameznih komponentah $U_i$, to je $$\gamma_s(G) = 1 + \sum\limits_{i=1}^l\gamma(U_i).$$ Ker nobena komponenta nima lastnosti $\mathcal{P^*}$, je zgornja vsota enaka $Q(G, G_1)$, torej velja $\gamma_s(G) = Q(G, G_1)$.
 
 Privzemimo sedaj, da ima neka komponenta $U_j$ lastnost $\mathcal{P^*}$. Po lemi~\ref{Lema7} obstaja $\gamma_s$-množica $S$, v kateri je vsebovan tudi $x$ in velja $|S \cap V(U_i)| \leq \gamma(U_i)$ za vsak $i \in [l]$. Recimo, da obstajata dve različni komponenti $U_k$ in $U_{k'}$, da za njiju velja  $|S \cap V(U_k)| < \gamma(U_k)$ in $|S \cap V(U_{k'})| < \gamma(U_{k'})$, kar pomeni, da so znotraj množice $U_k$ oziroma $U_{k'}$ taka vozlišča, ki niso dominirana z vozlišči iz množice $S \cap V(U_k)$ oziroma $S \cap V(U_{k'})$. Označimo dve taki vozlišči z $u_1\in V(U_k)$ in $u_2 \in V(U_{k'})$. Ker sta vsak v svoji komponenti, med njima ni povezave, sta pa obe dominirani (in varovani) le z vozliščem $x$. Po posledici~\ref{Observation1ii} sledi, da sta del klike in zato sosedne, kar pa vodi do protislovja. Torej lahko obstaja največ ena komponenta $U_k$, ki zadošča neenakosti $|S \cap V(U_k)| < \gamma(U_k)$.
 
@@ -2196,6 +2196,7 @@ Izračun $\gamma_s(T_G(c))$ za spoj grafov smo tako razdelili glede na lastnost 
 \cleardoublepage     
 
 \section*{Dodatek A}
+\addcontentsline{toc}{section}{Dodatek A}
 V dodatku A se nahaja implementacija algoritma AY. Implementiran je v programskem jeziku \emph{Python} s pomočjo knjižnice \emph{SageMath}. Koda je prosto dostopna tudi na naslovu \url{https://github.com/anjakisek/magistrska-naloga/tree/main/algoritem-AY}.
 
 \subsection*{Pomožne metode}
@@ -2305,6 +2306,7 @@ def calccograph(G, root, dict):
 
 
 \section*{Dodatek B}
+\addcontentsline{toc}{section}{Dodatek B}
 V dodatku B se nahaja implementacija algoritma PJB. Implementiran je v programskem jeziku \emph{Python} s pomočjo knjižnice \emph{SageMath}. Koda je prosto dostopna tudi na naslovu \url{https://github.com/anjakisek/magistrska-naloga/tree/main/algoritem-PJB}.
 
 \subsection*{Pomožne metode}
@@ -2544,6 +2546,7 @@ def isciGammaS(H, dict, root):
 
 
 % Literatura:
+\addcontentsline{toc}{section}{Literatura}
 \begin{thebibliography}{99}
 
 \bibitem{allem2020integral}
