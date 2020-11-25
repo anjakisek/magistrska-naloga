@@ -80,7 +80,7 @@
 \renewcommand{\listalgorithmname}{Kazalo algoritmov}
 
 % DRUGI TVOJI PAKETI:
-
+\usepackage{hyperref}
 
 \usepackage{enumitem}
 \setlength{\overfullrule}{50pt} % označi predlogo vrstico
@@ -310,7 +310,7 @@ Problem iskanja dominantnih množic in dominantnih števil sega v sredino 20. st
 V tem delu se bomo najbolj posvetili linearnima algoritmoma za iskanje varnostne dominacije na kografih, ki sta bila med seboj neodvisno izdana leta 2019, to sta članek avtorjev Pradhan, Jha in Banerjee \cite{jha2019secure} ter avtorjev Araki in Yamanaka \cite{araki2019secure}.
 
 \medskip
-V drugem poglavju bomo definirali kografe in kodrevesa, navedli omenjene karakterizacije kografov ter predstavili nekaj algoritmov, ki so na kografih linearni. V tretjem poglavju bomo predstavili problem varnostnodominantnega števila ter dokazali nekaj lastnosti varnostnodominantnih množic. Sledili bosta dve poglavji, vsako s svojim algoritmom za izračun varnostne dominacije na kografih. V obeh primerih bomo najprej dokazali trditve in leme, ki dokazujejo pravilnost algoritmov, nato pa predstavili še psevdokodo ter način implementacije za algoritma. TODO
+V drugem poglavju bomo definirali kografe in kodrevesa, navedli omenjene karakterizacije kografov ter predstavili nekaj algoritmov, ki so na kografih linearni. V tretjem poglavju bomo motivirali problem varnostnodominantnega števila ter dokazali nekaj lastnosti varnostnodominantnih množic. Sledili bosta dve poglavji, vsako s svojim algoritmom za izračun varnostne dominacije na kografih. V obeh primerih bomo najprej dokazali trditve in leme, ki dokazujejo pravilnost algoritmov, nato pa predstavili še psevdokodo ter način implementacije za algoritma, implementacije pa priložili v dodatku A in B. V zadnjem poglavju bomo povzeli rezultate naloge ter obrazložili nepopolnost ene izmed lem, ki je bila povod za nastanek članka~\cite{kisek2020onJha}.
 
 V preostanku tega poglavja bomo podali osnovne definicije iz teorije grafov, ki jih potrebujemo.
 
@@ -935,6 +935,8 @@ Ker smo z indukcijo pokazali, da v grafu $G$ obstaja klika velikosti $\mu(G)$, v
 
 Eden od razlogov za preučevanje kografov je popolnost grafa. Leta 1961 je Berg domneval~\cite{berge1961coloring}, nato pa leta 1972 Lovász dokazal~\cite{lovasz1972characterisation}, da je komplement popolnega grafa popoln graf. Izkaže se, da je najmanjša družina grafov, ki so zaprti za komplement, ravno kografi, saj poleg komplementa dovoljujejo konstrukcijo kografov le s pomočjo unije. Verjetno je zaradi tega dejstva prišlo do sedaj uveljavljene definicije kografov, z naslednjo trditvijo pa se prepričajmo, da to dejstvo res drži.
 
+\pagebreak
+
 \begin{trditev} Vsak kograf je popoln graf.
 \end{trditev}
 \begin{proof}
@@ -1440,7 +1442,7 @@ Naj bosta $G$ in $H$ kografa.
 \end{algorithmic}
 \end{algorithm}
 Algoritem~\ref{alg:araki} za računanje $\gamma_s$ sprejme binarno kodrevo, vrne pa varnostnodominantno število, dominantno število, vrednost $q$ ter število vozlišč grafa. Skonstruiran je rekurzivno, kjer za liste določi znane vrednosti teh štirih števil, nato pa glede na notranja vozlišča kodrevesa računa vrednosti navzgor po drevesu. Ker je kodrevo binarno, ima vsako notranje vozlišče natanko dva potomca, kar pomeni, da vrednosti $\gamma_s$, $\gamma$ in $q$ na vsakem koraku računamo le na spoju/uniji dveh grafov, kakor smo to obravnavi v zgornjih izrekih.
-
+Implementacija algoritma je priložena v dodatku A.
 \begin{izrek}
 Algoritem AY pravilno izračuna varnostnodominantno število za poljuben kograf $G$ v času $O(m(G) + n(G))$.
 \end{izrek}
@@ -1514,6 +1516,7 @@ Primer zagnanega algoritma na grafu $G$ s slike~\ref{fig:skica-araki-graf} lahko
 Kot zadnje vozlišče obravnavamo koren drevesa. Označen je s $+$, zato za izračun uporabimo vrstice 18, 22, 24 in 25 ter dobimo vrednosti $(2,2,1,8)$.  To pomeni, da je varnostnodominantno število je enako 2 (primer $\gamma_s$-množice pa je množica $\{a, b\}$), dominantno število je enako 2 (primer $\gamma$-množice je prav tako množica $\{a, b\}$), vrednost $q(G)$ je enaka 1 (če odstranimo zaprto soseščino vozlišča $c$, nam ostane vozlišče $d$, ki je poln graf), graf pa ima 8 vozlišč.
 \end{primer}
 
+\pagebreak
 \section{Drugi algoritem za izračun $\gamma_s$ na kografih}\label{sec:drugialgoritem}
 V tem poglavju si bomo ogledali še en algoritem za izračun $\gamma_s$ v kografih avtorjev D. Pradhan, A. Jha in S. Banerjee, ki je bil objavljen v članku~\cite{jha2019secure} prav tako leta 2019, a se problema loti na nekoliko drugačen način. Algoritem sprejme kograf $G$, izračuna njegovo kodrevo $T_G$ (ki ni nujno binarno!), nato pa $\gamma_s$ poračunamo rekurzivno - vrednost $\gamma_s$ tako najprej določimo listom (ta vrednost je za liste enaka 1), nato pa nadaljujemo z vozlišči po drevesu navzgor, kjer uporabimo vrednosti, določene na prejšnji iteraciji. Tako ločimo postopek računanja glede na tip vozlišča, v katerem se nahajamo. Če je notranje vozlišče $u$ na trenutni iteraciji označeno z oznako $\cup$, s pomočjo posledice~\ref{vecUnij} seštejemo $\gamma_s(w)$ za vsakega potomca $w$ vozlišča $u$. Nekoliko težje je izračunati $\gamma_s$ za spoj grafov: sprva bomo definirali lastnost $\mathcal{R}$ za vozlišča kodreves ter lastnosti $\mathcal{P}$ in $\mathcal{P^*}$ za kografe, z njihovo pomočjo pa bomo nato obravnavali različne primere in kombinacije potomcev notranjih vozlišč z oznako $+$. Obravnavani primeri nas bodo vodili do končne oblike algoritma in zagotavljali njegovo pravilno delovanje.
 
@@ -1998,6 +2001,7 @@ S pomočjo zanke se sprehodimo čez vsa vozlišča $c_i$ našega zaporedja ter i
 \end{itemize}
 \end{itemize}
 
+Implementacija algoritma je priložena v dodatku B.
 \begin{izrek} Algoritem~\ref{alg:pradhan} pravilno izračuna varnostnodominantno število za poljuben kograf $G$ v času $O(m(G) + n(G))$.
 \end{izrek}
 \begin{proof}
@@ -2125,18 +2129,18 @@ $c_i$   & oznaka  &  $\mathcal{P}$  & $\mathcal{R}$ & $\mathcal{A}^*$ &  $\mathc
 \end{table}
 
 
-\subsection{Zaključek}
-V magistrskem delu smo pripravili pregled področja kografov, kjer smo večji del pozornosti namenili njihovi algoritmični obravnavi. Definicijo kografov smo povezali z njihovo reprezentacijo s kodrevesi in opisali postopek za linearno konstrukcijo kodreves in binarnih kodreves. Pokazali smo, da se lastnosti kografov dedujejo na inducirane podgrafe, ter s pomočjo tega dejstva karakterizirali kografe še s štirimi lastnostmi. Dokazali smo lastnost, da je vsako barvanje kografa s požrešnim algoritmom optimalno barvanje, iz česar smo povzeli, da kografi spadajo v družino popolnih grafov. S tem smo prevedli problem barvanja kografov na problem iskanja kličnega števila kografov, kar je mogoče izračunati v linearnem času. Navedli smo nekaj algoritmov, ki delujejo po podobnem principu, mednje pa sodita tudi iskanje dominantnega in varnostnodominantnega števila.
+\section{Zaključek}
+V magistrskem delu smo pripravili pregled področja kografov, kjer smo večji del pozornosti namenili njihovi algoritmični obravnavi. Definicijo kografov smo povezali z njihovo reprezentacijo s kodrevesi in opisali postopek za linearno konstrukcijo kodreves in binarnih kodreves. Pokazali smo, da se lastnosti kografov dedujejo na inducirane podgrafe, ter s pomočjo tega dejstva kografe karakterizirali s štirimi lastnostmi---odsotnostjo inducirane poti dolžine 4, skupno soseščino parov vozlišč, lastnostjo CK ter nepovezanostjo ali grafa ali njegovega komplementa. Dokazali smo lastnost, da je vsako barvanje kografa s požrešnim algoritmom optimalno barvanje, iz česar smo povzeli, da kografi spadajo v družino popolnih grafov. S tem smo prevedli problem barvanja kografov na problem iskanja kličnega števila kografov, kar je mogoče izračunati v linearnem času. Navedli smo nekaj algoritmov, ki delujejo po podobnem principu, mednje pa sodita tudi iskanje dominantnega in varnostnodominantnega števila.
 
 Motivirali smo uvedbo varnostne dominacije ter jo karakterizirali z $S$-zunanjo soseščino vozlišča. Določili smo vrednosti $\gamma_s$ za polne grafe, spoje poljubnih grafov s polnim grafom $K_n$ (za $n=1$ in poljuben $n$) ter navzgor omejili vrednosti $\gamma_s$ za spoj poljubnih dveh grafov.
 
 Za potrebe algoritma AY, ki izračuna $\gamma_s$ za binarno kodrevo, smo raziskali vrednosti $\gamma_s$ za unijo in spoj dveh poljubnih grafov. Računanje vrednosti v primeru spoja smo razdelili na pogoje za $\gamma_s=1$, $\gamma_s=2$ in $\gamma_s=3$---če ni izpolnjen noben izmed teh pogojev, sledi, da je $\gamma_s = 4$. Argumentirali smo linearno časovno zahtevnost algoritma AY in na primeru pokazali potek algoritma. 
 
-Za algoritem PJB, ki uporablja običajno kodrevo, smo definirali lastnost $\mathcal{R}$ za notranja vozlišča kodrevesa ter lastnosti $\mathcal{P}$ in $\mathcal{P^*}$ za kografe. Lastnost $\mathcal{P}$ smo v lemi \ref{Lema4} podali kot pogoj za $\gamma_s = 2$ na spoju poljubnih nepolnih grafov, zato je za algoritem pomembno, da zna hitro preveriti, ali podgraf ustreza lastnosti $\mathcal{P}$. Karakterizacijo lastnosti, ki jo lahko algoritem preveri v linearnem času, smo dokazali v lemi~\ref{Lema2}, ki smo jo dopolnili, da velja tudi v splošnem~\cite{kisek2020onJha}. V članku~\cite{jha2019secure} je lema navedena na sledeč način.
+Za algoritem PJB, ki uporablja običajno kodrevo, smo definirali lastnost $\mathcal{R}$ za notranja vozlišča kodrevesa ter lastnosti $\mathcal{P}$ in $\mathcal{P^*}$ za kografe. Lastnost $\mathcal{P}$ smo v lemi \ref{Lema4} podali kot pogoj za $\gamma_s = 2$ na spoju poljubnih nepolnih grafov, zato je za algoritem pomembno, da zna hitro preveriti, ali podgraf ustreza lastnosti $\mathcal{P}$. Karakterizacijo lastnosti, ki jo lahko algoritem preveri v linearnem času, smo dokazali v lemi~\ref{Lema2}, ki smo jo dopolnili, da velja tudi v splošnem~\cite{kisek2020onJha}. V članku~\cite{jha2019secure} je sicer lema navedena na sledeč način.
 \begin{lema}{\rm{\cite[Lemma 2]{jha2019secure}}}\label{OriginalLemma2} Naj bo $T_G$ kodrevo kografa $G$ in $c$ neko vozlišče z oznako $+$. Tedaj ima $T_G(c)$ lastnost $\mathcal{P}$ natanko tedaj, ko obstajata vsaj dva potomca vozlišča $c$, ki sta ali list ali vozlišče z oznako $\mathcal{R}$.
 \end{lema}
 
-Spomnimo se družine grafov $G_k$ iz primera~\ref{primerP} in pokažimo, da lema~\ref{OriginalLemma2} ne drži v splošnem. Naj bo $k \in \mathbb{N}$ in $K_k$ poln graf z vozlišči $\{a_1, \dots, a_k\}$. Družina kografov $G_k$ je definirana kot graf z množico vozlišč $V(G_k) = V(K_k) \cup \{b, c, d, e\}$ in množico povezav $$E(G_k) = E(K_k) \cup \{bc, bd, be\} \cup \{ca_i, da_i, ea_i, i \in [k]\}.$$
+Spomnimo se družine grafov $G_k$ iz primera~\ref{primerP} (znova na sliki~\ref{fig:counterExampleGraph}) in pokažimo, da lema~\ref{OriginalLemma2} ne drži v splošnem. Naj bo $k \in \mathbb{N}$ in $K_k$ poln graf z vozlišči $\{a_1, \dots, a_k\}$. Družina kografov $G_k$ je definirana kot graf z množico vozlišč $V(G_k) = V(K_k) \cup \{b, c, d, e\}$ in množico povezav $$E(G_k) = E(K_k) \cup \{bc, bd, be\} \cup \{ca_i, da_i, ea_i, i \in [k]\}.$$
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[main_node/.style={circle,draw,minimum size=2em,inner sep=1, scale=0.9}]
@@ -2189,10 +2193,119 @@ Lemo smo popravili z dodatnim pogojem (lema~\ref{Lema2} $(ii)$) ter dokazali pra
 
 Izračun $\gamma_s(T_G(c))$ za spoj grafov smo tako razdelili glede na lastnost $\mathcal{P}$, v primeru, da graf lastnosti ne zadošča, pa še glede na število potomcev $c$ ter z lastnostjo $\mathcal{P^*}$ definirano funkcijo $Q(G, G_i)$. Predstavili smo način implementacije algoritma, računanja lastnosti $\mathcal{R}$ in $\mathcal{P^*}$, argumentirali linearno časovno zahtevnost algoritma PJB ter pokazali potek algoritma na primeru.
 \vfill
-\pagebreak
+\cleardoublepage     
+
+\section*{Dodatek A}
+V dodatku A se nahaja implementacija algoritma AY. Implementiran je v programskem jeziku \emph{Python} s pomočjo knjižnice \emph{SageMath}. Koda je prosto dostopna tudi na naslovu \url{https://github.com/anjakisek/magistrska-naloga/tree/main/algoritem-AY}.
+
+\subsection*{Pomožne metode}
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+baselinestretch=1.2,
+% bgcolor=LightGray,
+fontsize=\scriptsize,
+linenos
+]{python}
+def conditionTheorem4_3(s1, g1, q1, s2, g2, q2):
+    if (s1 == 2 or s2 == 2):
+        return True
+    elif (g1 == 1 and g2 == 1):
+        return True
+    elif ((g1 == 1 and q2 == 1) or (q1 == 1 and g2 == 1)):
+        return True
+    elif (q1 == 1 and q2 == 1):
+        return True
+    else:
+        return False
+    
+def conditionTheorem4_4(s1, g1, q1, s2, g2, q2):
+    if (s1 == 3 or s2 == 3):
+        return True
+    elif (g1 == 2 or g2 == 2):
+        return True
+    elif (q1 == 2 or q2 == 2):
+        return True
+    else:
+        return False
+   
+\end{minted}
+
+
+\subsection*{Algoritem AY}
+
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+baselinestretch=1.2,
+% bgcolor=LightGray,
+fontsize=\scriptsize,
+linenos
+]{python}
+
+def calccograph(G, root, dict):
+    '''Calculates gamma_s(G) 
+        Input: G - cotree
+               dict - dictionary for U = true; + = False; None = leaf,
+               root - root of cotree G
+        Output: list (gamma_s(G), gamma(G), q(G), n(G))'''
+#   if root is leaf node
+    if G.order() == 1:
+        return (1, 1, 0, 1)
+    
+    list = G.neighbors(root)
+    root1 = list[0]
+    root2 = list[1]
+    
+    G.delete_vertex(root)
+    komponente = G.connected_components(sort=False)
+    if (G.subgraph(komponente[0]).has_vertex(root1)):
+        (s1, g1, q1, n1) = calccograph(G.subgraph(komponente[0]), root1, dict)
+        (s2, g2, q2, n2) = calccograph(G.subgraph(komponente[1]), root2, dict)
+    else:
+        (s1, g1, q1, n1) = calccograph(G.subgraph(komponente[0]), root2, dict)
+        (s2, g2, q2, n2) = calccograph(G.subgraph(komponente[1]), root1, dict)
+    if dict[root]:
+        return (s1 + s2, g1 + g2, min(q1 + g2, q2 + g1), n1 + n2)
+    else:
+        # gammaS
+        if (s1 == 1 and s2 == 1):
+            gammaS = 1
+        elif (s1 == 1 and s2 >= 2):
+            if n1 == 1:
+                gammaS = min(g2 + 1, s2, q2 + 1)
+            else:
+                gammaS = 2
+        elif (s2 == 1 and s1 >= 2):
+            if n1 == 1:
+                gammaS = min(g1 + 1, s1, q1 + 1)
+            else:
+                gammaS = 2
+        else:
+            if conditionTheorem4_3(s1, g1, q1, s2, g2, q2):
+                gammaS = 2
+            elif conditionTheorem4_4(s1, g1, q1, s2, g2, q2):
+                gammaS = 3
+            else:
+                gammaS = 4
+        
+        # gamma
+        if (g1 == 1 or g2 == 1):
+            gamma = 1
+        else:
+            gamma = 2
+        
+        # q
+        if (q1 == 0 or q2 == 0):
+            q = max(q1, q2)
+        else:
+            q = min(q1, q2)
+        return (gammaS, gamma, q, n1 + n2)
+\end{minted}
+
 
 \section*{Dodatek B}
-V dodatku B se nahaja implementacija algoritma PJB. Implementiranje v programskem jeziku \emph{Python} s pomočjo knjižnice \emph{SageMath}. Koda je prosto dostopna tudi na naslovu 
+V dodatku B se nahaja implementacija algoritma PJB. Implementiran je v programskem jeziku \emph{Python} s pomočjo knjižnice \emph{SageMath}. Koda je prosto dostopna tudi na naslovu \url{https://github.com/anjakisek/magistrska-naloga/tree/main/algoritem-PJB}.
 
 \subsection*{Pomožne metode}
 \begin{minted}[
