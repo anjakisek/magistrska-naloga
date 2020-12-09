@@ -254,18 +254,15 @@ Zahvaljujem se \dots
 
 \section*{Program dela}
 \addcontentsline{toc}{section}{Program dela} % dodajmo v kazalo
-Mentor naj napiše program dela skupaj z osnovno literaturo. Na literaturo se
-lahko sklicuje kot...
+ Magistrsko delo naj razišče algoritma, ki sta bila nedavno razvita za izračun varnostne dominacije kografov. V okviru dela naj bosta oba algoritma tudi implementirana. Kot osnova za razumevanje algoritmov naj bodo razložene splošne lastnosti varnostne dominacije ter predstavljene pomembne lastnosti kografov in njihove karakterizacije.
 
 \section*{Osnovna literatura}
-Literatura mora biti tukaj posebej samostojno navedena (po pomembnosti) in ne
-le citirana. V tem razdelku literature ne oštevilčimo po svoje, ampak uporabljamo
-okolje itemize in ukaz plancite, saj je celotna literatura oštevilčena na koncu.
 \begin{itemize}
-  \plancite{lebedev2009introduction}
-  \plancite{gurtin1982introduction}
-  \plancite{zienkiewicz2000finite}
-  \plancite{STtemplate}
+  \plancite{araki2019secure}T. Araki, R. Yamanaka, Secure domination in cographs, Discrete Applied Mathematics 262 (2019) 179–184.
+  \plancite{cockayne2005protection} E.J. Cockayne, P.J.P. Grobler, W.R. Grundlingh, J. Munganga, J.H. van Vuuren, Protection of a graph, Utilitas Mathematica 67 (2005) 19–32.
+  \plancite{corneil1984cographs} D.G. Corneil, Y. Perl, Cographs: recognition, applications and algorithms, Congressus Numerantium 43 (1984) 249–258.
+  \plancite{jha2019secure} A. Jha, D. Pradhan, S. Banerjee, The secure domination problem in cographs, Information Processing Letters 145 (2019) 30–38.
+
 \end{itemize}
 
 \vspace{2cm}
@@ -917,7 +914,7 @@ Za poljuben graf $G$ so naslednje trditve ekvivalentne:
 \begin{enumerate}[label=(\roman*)]
 \item $G$ je $\omega\mu$-popoln.
 \item $G$ je $\chi\mu$-popoln.
-\item $G$ ne vsebuje induciranega podgrafa poti dolžine 4.
+\item $G$ ne vsebuje induciranega podgrafa poti dolžine $4$.
 \end{enumerate}
 \end{izrek}
 
@@ -937,10 +934,11 @@ Eden od razlogov za preučevanje kografov je popolnost grafa. Leta 1961 je Berg 
 
 \pagebreak
 
-\begin{trditev} Vsak kograf je popoln graf.
-\end{trditev}
+\begin{izrek}
+Vsak kograf je popoln graf.
+\end{izrek} 
 \begin{proof}
-Glede na različne karakterizacije kografov lahko trditev dokažemo na različne načine:
+Glede na različne karakterizacije kografov lahko izrek dokažemo na različne načine:
 \begin{itemize}
 \item Kot posledico izreka~\ref{grundyjevaKarakterizacija}. Naj bo graf $G$ kograf. Po izreku~\ref{karakterizacija} sledi, da $G$ ne vsebuje induciranega grafa $P_4$, zato po izreku~\ref{grundyjevaKarakterizacija} sledita enakosti $\omega(H)=\mu(H)$ in $\chi(H)=\mu(H)$ za vsak induciran podgraf $H$ grafa $G$. Izrek sledi.
 
@@ -1014,7 +1012,7 @@ Formula za generiranje maks. klik & $V(G)$     &   $a=\land_1^k a_i $   &     $a
 Listom priredimo pripadajoče oznake vozlišč iz množice $V(G)$. Za notranja vozlišča uporabimo enak premislek kot v točki $(ii)$---formula generiranja množice maksimalnih klik na vozlišču $c_i$ z oznako $+$ je tedaj konjunkcija formul na potomcih vozlišča $c_i$, na vozlišču $c_j$ z oznako $\cup$ pa formule na potomcih vozlišča $c_j$, povezane z operatorjem ekskluzivni ali (xor).
 
 \begin{primer}\label{primerGeneriranje}
-Naj bo $G$ graf, prikazan na sliki~\ref{fig:primerGeneriranjaFormule}, in $T_G$ njegovo pripadajoče kodrevo. Tedaj je po zgornjem algoritmu formula za generiranje množice maksimalnih klik enaka
+Naj bo $G$ kograf, prikazan na sliki~\ref{fig:primerGeneriranjaFormule}, in $T_G$ njegovo pripadajoče kodrevo. Tedaj je po zgornjem algoritmu formula za generiranje množice maksimalnih klik enaka
 $$(e \oplus b) \land ((c \land d) \oplus a).$$
 
 \begin{figure}[h!]
@@ -1060,7 +1058,7 @@ Naj bo  $A = \{e, d\}$. Na sliki~\ref{fig:primerGeneriranjaFormule} hitro opazim
 $$(1 \oplus 0) \land ((0 \land 1) \oplus 0),$$ ki jo poenostavimo v $$1 \land (0 \oplus 0),$$ kar je nadalje enako 0. To pomeni, da množica $A$ ni maksimalna klika v grafu $G$.
 
 Oglejmo si sedaj še, kako generiramo maksimalno kliko, ki vsebuje vozlišče $a$. V formulo vnesemo $a=1$ in dobimo $$(e \oplus b) \land ((c \land d) \oplus 1),$$ kar poenostavimo v $$(e \oplus b) \land 1,$$ iz česar sledi $$e \oplus b.$$
-To pomeni, da maksimalna klika, ki vsebuje vozlišče $a$, vsebuje tudi ali vozlišče $e$ ali $b$.
+To pomeni, da maksimalna klika, ki vsebuje vozlišče $a$, vsebuje tudi ali vozlišče $e$ ali vozlišče $b$.
 \end{primer}
 \end{enumerate}
 
@@ -1078,7 +1076,7 @@ V tem poglavju bomo definirali varnostno dominacijo na grafih in dokazali nekaj 
 \medskip
 Spomnimo, da je dominantna množica $D$ grafa $G$ taka množica vozlišč, da vsako vozlišče iz $V(G) \setminus D$ leži v soseščini nekega elementa množice $D$. Izpeljanka dominantne množice je varnostnodominantna množica, ki je sama zase tudi dominantna (slika~\ref{dominacija}), le da velja še dodaten pogoj:
 \begin{definicija}
-\emph{Varnostnodominantna množica} \index{varnostnodominantna množica} (ang. \emph{security domination set}) $S$ grafa $G$ je taka dominantna množica vozlišč $S \subseteq V(G)$, da je tudi $(S \setminus \{u\}) \cup \{v\}$ dominantna množica. \emph{Varnostnodominantno število $\gamma_s(G)$} \index{varnostnodominantno število} je kardinalnost najmanjše varnostnodominantne množice za graf $G$. Varnostnodominantni množici, katere kardinalnost je enaka varnostnodominantnemu številu, pravimo $\gamma_s$-množica. Rečemo, da $u \in S$ \emph{varuje}\index{varovanje vozlišča} vozlišče $v$, če sta $u$ in $v$ sosedni in velja, da je $(S \setminus \{u\}) \cup \{v\}$ dominantna množica.
+\emph{Varnostnodominantna množica} \index{varnostnodominantna množica} (ang.~\emph{security domination set}) $S$ grafa $G$ je taka dominantna množica vozlišč $S \subseteq V(G)$, da je tudi $(S \setminus \{u\}) \cup \{v\}$ dominantna množica. \emph{Varnostnodominantno število $\gamma_s(G)$} \index{varnostnodominantno število} je kardinalnost najmanjše varnostnodominantne množice za graf $G$. Varnostnodominantni množici, katere kardinalnost je enaka varnostnodominantnemu številu, pravimo $\gamma_s$-množica. Rečemo, da $u \in S$ \emph{varuje}\index{varovanje vozlišča} vozlišče $v$, če sta $u$ in $v$ sosedni in velja, da je $(S \setminus \{u\}) \cup \{v\}$ dominantna množica.
 \end{definicija}
 
 \begin{figure}[h]
@@ -1955,7 +1953,7 @@ V primeru, da $y, z \not\in U_j$, je celotna komponenta $U_j$ varovana le z vozl
 	\If {$c_i$ je list}
     	\State $\gamma_s(T_G(c_i))$  $\leftarrow$ 1
     \Else
-    	\State ($u_1$, $u_2$, ... , $u_l$) $\leftarrow$ potomci $c_i$
+    	\State ($u_1$, $u_2$, ..., $u_l$) $\leftarrow$ potomci $c_i$
         \If {$c_i$ ima oznako $\cup$}
         	\State $\gamma_s(T_G(C_i)) \leftarrow \sum\limits_{j=1}^l \gamma_s(T_G(u_j))$
           \Else  \hfill\Comment{$c_i$ ima oznako $+$}
@@ -2125,7 +2123,7 @@ $c_i$   & oznaka  &  $\mathcal{P}$  & $\mathcal{R}$ & $\mathcal{A}^*$ &  $\mathc
 17 & $+$    &      &              &    &    & 2          & 2       & /  & 3      
 \end{tabular}
 \end{adjustbox}
-\caption{\label{tab:tabela pradhan}Tabela vrednosti, ki jih poračunamo na $i$-ti iteraciji algoritma~\ref{alg:pradhan} PJB.}
+\caption{\label{tab:tabela pradhan}Tabela vrednosti, ki jih poračunamo na $i$-ti iteraciji algoritma PJB.}
 \end{table}
 
 
@@ -2189,7 +2187,7 @@ Spomnimo se družine grafov $G_k$ iz primera~\ref{primerP} (znova na sliki~\ref{
 
 Naj bo $c$ koren kodrevesa $T_{G_k}$, ki je označen s $+$. V primeru~\ref{primerP} smo pokazali, da $T_{G_k}(c) = G_k$ zadošča lastnosti $\mathcal{P}$, saj je $\{a_1, b\}$ dominantna množica, množici $V(G) \setminus N_G[a_1] = \{b\}$ in $V(G) \setminus N_G[b] = V(K_k)$ pa sta kliki. Vendar $G_k$ ne izpolnjuje pogojev iz zgornje leme~\ref{OriginalLemma2}. Vozlišče $c$ ima v kodrevesu $T_{G_k}$ dva potomca, oba sta označena z $\cup$. Hitro se lahko prepričamo, da ima desni potomec lastnost $\mathcal{R}$, levi pa zaradi števila potomcev ne, kar pomeni, da levi potomec ni niti list niti vozlišče z oznako $\mathcal{R}$, torej pogoju v lemi~\ref{OriginalLemma2} ni zadoščeno. S tem smo našli neskončno protiprimerov za lemo~\ref{OriginalLemma2}.
 
-Lemo smo popravili z dodatnim pogojem (lema~\ref{Lema2} $(ii)$) ter dokazali pravilnost karakterizacije, v opombi~\ref{opombaLema2} pa pokazali, da vpeljana sprememba ne spremeni linearnosti algoritma. V prvotni implementaciji za potrebe določanja lastnosti $\mathcal{P}$ za graf $T_G(c)$ namreč potrebujemo le podatek o potomcih vozlišča $c$. Zanje preverimo, če so bodisi list bodisi vozlišče z oznako $\mathcal{R}$, pri čemer smo za potrebe podatkov o lastnost $\mathcal{R}$ implementirali seznam $\mathcal{R}$, ki ga posodobimo na vsaki iteraciji v $O(|N_{T_G(ci)}(c_i)|)$ času. Popravljena lema zaradi pogoja $(ii)$ zahteva, da se preverja tudi polnost komponent potomcev vozlišča $c$. Ker za polne grafe $H$ velja $\gamma_s(H) = 1$, vrednosti $\gamma_s$ pa algoritem sproti beleži, z dodatnim pogojem ne presežemo linearnosti časovne zahtevnosti.
+Lemo smo popravili z dodatnim pogojem (lema~\ref{Lema2} $(ii)$) ter dokazali pravilnost karakterizacije, v opombi~\ref{opombaLema2} pa pokazali, da vpeljana sprememba ne spremeni linearnosti algoritma. V prvotni implementaciji za potrebe določanja lastnosti $\mathcal{P}$ za graf $T_G(c)$ namreč potrebujemo le podatek o potomcih vozlišča $c$. Zanje preverimo, če so bodisi list bodisi vozlišče z oznako $\mathcal{R}$, pri čemer smo za potrebe podatkov o lastnost $\mathcal{R}$ implementirali seznam $\mathcal{R}$, ki ga posodobimo na vsaki iteraciji v $O(|N_{T_G(ci)}(c_i)|)$ času. Popravljena lema zaradi pogoja $(ii)$ zahteva, da se preverja tudi polnost komponent potomcev vozlišča $c$. Ker za polne grafe $H$ velja $\gamma_s(H) = 1$, vrednosti $\gamma_s$ pa algoritem sproti beleži, z dodatnim pogojem ne presežemo linearnosti časovne zahtevnosti. Podrobnosti našega popravka algoritma so zapisane v članku~\cite{kisek2020onJha}.
 
 Izračun $\gamma_s(T_G(c))$ za spoj grafov smo tako razdelili glede na lastnost $\mathcal{P}$, v primeru, da graf lastnosti ne zadošča, pa še glede na število potomcev $c$ ter z lastnostjo $\mathcal{P^*}$ definirano funkcijo $Q(G, G_i)$. Predstavili smo način implementacije algoritma, računanja lastnosti $\mathcal{R}$ in $\mathcal{P^*}$, argumentirali linearno časovno zahtevnost algoritma PJB ter pokazali potek algoritma na primeru.
 \vfill
@@ -2637,7 +2635,7 @@ def isciGammaS(H, dict, root):
 \bibitem{epple2020k}
     D.A.~Epple, J.~Huang,
     $(k, l)$-colourings and Ferrers diagram representations of cographs,
-    European Journal of Combinatorics 91 (2020) Paper 103208.
+    European Journal of Combinatorics 91 (2020) 103208.
     
 \bibitem{geiss2020reciprocal}
     M.~Gei{\ss}, P.F.~Stadler, M.~Hellmuth,
@@ -2652,7 +2650,7 @@ def isciGammaS(H, dict, root):
 \bibitem{hellmuth2013orthology}
     M.~Hellmuth, M.~Hernandez-Rosales, K.T.~Huber, V.~Moulton, P.F.~Stadler, N.~Weiseke,
     Orthology relations, symbolic ultrametrics, and cographs,
-    Journal of mathematical biology 66 (2013) 399--420.
+    Journal of Mathematical Biology 66 (2013) 399--420.
 
 \bibitem{jha2019secure}
   A.~Jha, D.~Pradhan, S.~Banerjee, 
@@ -2706,7 +2704,7 @@ def isciGammaS(H, dict, root):
     
 \bibitem{seinsche1974property}
     D.~Seinsche,
-    On a property of the class of n-colorable graphs,
+    On a property of the class of $n$-colorable graphs,
     Journal of Combinatorial Theory, Series B 16 (1974) 191--193.
     
 \bibitem{stewart1978cographs}
@@ -2723,7 +2721,7 @@ def isciGammaS(H, dict, root):
 \bibitem{tsur2020faster}
     D.~Tsur,
     Faster algorithms for cograph edge modification problems,
-    Information Processing Letters 158 (2020) Paper 105946. 
+    Information Processing Letters 158 (2020) 105946. 
 
 \bibitem{wang2018complexity}
     H.~Wang, Y.~Zhao, Y.~Deng,
@@ -2733,7 +2731,7 @@ def isciGammaS(H, dict, root):
 \bibitem{yu1993n}
     M.~Yu, C.~Yang,
     An $O(n)$ time algorithm for maximum matching on cographs,
-    Information processing letters 47 (1993) 89--93.
+    Information Processing Letters 47 (1993) 89--93.
     
 \end{thebibliography}
 
